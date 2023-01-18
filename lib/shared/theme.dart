@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 double defaultMargin = 24.0;
 
 Color kWhiteColor = const Color(0xFFFFFFFF);
-Color kPrimaryColor = const Color(0xFFF6F2EF);
+Color kPrimaryColor1 = const Color(0xFFF6F2EF);
 Color kGreyColor = const Color(0xFFD9D9D9);
-Color kTextColor = const Color(0xFF4B4633);
+Color kPrimaryColor2 = const Color(0xFF4B4633);
 
-TextStyle titleTextStyle = TextStyle(
-  color: kTextColor,
+TextStyle mainTextStyle = TextStyle(
+  color: kPrimaryColor2,
 );
 
 FontWeight light = FontWeight.w300;

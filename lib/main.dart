@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Schizofriend',
       theme: ThemeData(
         fontFamily: 'Poppins',
-        primaryColor: kPrimaryColor,
+        primaryColor: kPrimaryColor1,
       ),
       home: MainPage(),
     );

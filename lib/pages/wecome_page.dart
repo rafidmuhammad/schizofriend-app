@@ -28,7 +28,7 @@ class NightPage extends StatelessWidget {
                 ),
                 Text("Selamat Malam",
                     textAlign: TextAlign.center,
-                    style: titleTextStyle.copyWith(
+                    style: mainTextStyle.copyWith(
                         fontSize: (width * 0.1), fontWeight: semibold)),
                 const SizedBox(
                   height: 10,
@@ -36,7 +36,7 @@ class NightPage extends StatelessWidget {
                 Text(
                   "$name!",
                   textAlign: TextAlign.center,
-                  style: titleTextStyle.copyWith(
+                  style: mainTextStyle.copyWith(
                       fontSize: (width * 0.1), fontWeight: semibold),
                 ),
               ],
@@ -75,7 +75,7 @@ class DaylightPage extends StatelessWidget {
                 ),
                 Text("Selamat Malam",
                     textAlign: TextAlign.center,
-                    style: titleTextStyle.copyWith(
+                    style: mainTextStyle.copyWith(
                         fontSize: (width * 0.1), fontWeight: semibold)),
                 const SizedBox(
                   height: 10,
@@ -83,7 +83,7 @@ class DaylightPage extends StatelessWidget {
                 Text(
                   "$name!",
                   textAlign: TextAlign.center,
-                  style: titleTextStyle.copyWith(
+                  style: mainTextStyle.copyWith(
                       fontSize: (width * 0.1), fontWeight: semibold),
                 ),
               ],
