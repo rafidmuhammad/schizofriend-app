@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ta_schizo/shared/theme.dart';
+import 'package:ta_schizo/widgets/medication_card.dart';
 import 'package:ta_schizo/widgets/navigation_button.dart';
 
 class MainPage extends StatelessWidget {
@@ -91,6 +92,27 @@ class MainPage extends StatelessWidget {
     );
   }
 
+  Widget currentMedication(double height) {
+    return Column(
+      children: [
+        MedicationCard(
+          height: height,
+          name: "Clozapine",
+          isAfterMeal: true,
+          time: "08.00 • 22.00",
+          onTap: () {},
+        ),
+        MedicationCard(
+          height: height,
+          name: "Trihexyphenidyl",
+          isAfterMeal: true,
+          time: "08.00 • 13.00 • 19.00",
+          onTap: () {},
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -112,6 +134,8 @@ class MainPage extends StatelessWidget {
                 height: 40,
               ),
               secondRowButtons(width, height),
+              currentMedication(height),
+              SizedBox(height: 100),
             ],
           ),
         ),
