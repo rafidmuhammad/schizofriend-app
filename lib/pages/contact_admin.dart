@@ -16,7 +16,10 @@ class AdminContact extends StatelessWidget {
           title: const Text(
             'Ingin bertanya? Kontak Admin',
           ),
-          trailing: const Icon(Icons.arrow_forward_ios_rounded),
+          trailing: const Icon(
+            Icons.arrow_forward_ios_rounded,
+            size: 15,
+          ),
           style: ListTileStyle.drawer,
           tileColor: kGreyColor,
           onTap: () {},

@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:ta_schizo/shared/theme.dart';
 
 class MedicationCard extends StatelessWidget {
-  final double height;
   final String name;
   final String time;
   final bool isAfterMeal;
   final Function() onTap;
   const MedicationCard(
       {super.key,
-      required this.height,
       required this.name,
       required this.time,
       required this.isAfterMeal,
@@ -17,9 +15,9 @@ class MedicationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _height = height * 0.02;
+    //double _height = height * 0.02;
     return Container(
-      margin: EdgeInsets.only(top: _height),
+      margin: const EdgeInsets.only(top: 10),
       child: Card(
         color: kGreyColor,
         child: ListTile(
@@ -37,7 +35,10 @@ class MedicationCard extends StatelessWidget {
             '$time | ${isAfterMeal ? "Setelah makan" : "Sebelum makan"}',
             style: detailTextStyle,
           ),
-          trailing: const Icon(Icons.arrow_forward_ios_rounded),
+          trailing: const Icon(
+            Icons.arrow_forward_ios_rounded,
+            size: 15,
+          ),
           isThreeLine: true,
         ),
       ),
