@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ta_schizo/pages/contact_admin.dart';
 import 'package:ta_schizo/shared/theme.dart';
 import 'package:ta_schizo/widgets/medication_card.dart';
 import 'package:ta_schizo/widgets/navigation_button.dart';
@@ -134,8 +135,12 @@ class MainPage extends StatelessWidget {
                 height: 40,
               ),
               secondRowButtons(width, height),
+              const SizedBox(
+                height: 20,
+              ),
               currentMedication(height),
-              SizedBox(height: 100),
+              AdminContact(height: height),
+              const SizedBox(height: 20),
             ],
           ),
         ),

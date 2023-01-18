@@ -17,7 +17,7 @@ class MedicationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _height = height * 0.05;
+    double _height = height * 0.02;
     return Container(
       margin: EdgeInsets.only(top: _height),
       child: Card(
@@ -31,13 +31,13 @@ class MedicationCard extends StatelessWidget {
           title: Text(
             overflow: TextOverflow.ellipsis,
             name,
-            style: TextStyle(color: Colors.black, fontSize: 18),
+            style: const TextStyle(color: Colors.black, fontSize: 18),
           ),
           subtitle: Text(
             '$time | ${isAfterMeal ? "Setelah makan" : "Sebelum makan"}',
             style: detailTextStyle,
           ),
-          trailing: Icon(Icons.arrow_forward_ios_rounded),
+          trailing: const Icon(Icons.arrow_forward_ios_rounded),
           isThreeLine: true,
         ),
       ),
