@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ta_schizo/main.dart';
 import 'package:ta_schizo/shared/theme.dart';
 
 class AdminContact extends StatelessWidget {
@@ -8,21 +9,26 @@ class AdminContact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double _height = height * 0.05;
-    return Container(
-      margin: EdgeInsets.only(top: _height),
-      child: Card(
-        child: ListTile(
-          leading: const Icon(Icons.phone),
-          title: const Text(
-            'Ingin bertanya? Kontak Admin',
-          ),
-          trailing: const Icon(
-            Icons.arrow_forward_ios_rounded,
-            size: 15,
-          ),
-          style: ListTileStyle.drawer,
-          tileColor: kGreyColor,
-          onTap: () {},
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        margin: const EdgeInsets.only(top: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.phone,
+              color: Colors.green,
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Text(
+              "Kontak admin",
+              style:
+                  mainTextStyle.copyWith(decoration: TextDecoration.underline),
+            )
+          ],
         ),
       ),
     );

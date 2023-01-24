@@ -1,22 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ta_schizo/shared/constant.dart';
 import 'package:ta_schizo/shared/theme.dart';
+import 'package:ta_schizo/widgets/custom_bar.dart';
 import 'package:ta_schizo/widgets/nav_halaman_utama.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:ta_schizo/widgets/social_button.dart';
 
 class CommunityPage extends StatelessWidget {
   const CommunityPage({super.key});
-
-  Future<void> launch(Uri url, BuildContext context) async {
-    try {
-      await launchUrl(url);
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
-        backgroundColor: Colors.red,
-      ));
-    }
-  }
 
   Widget header() {
     return Container();
@@ -28,48 +18,16 @@ class CommunityPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        GestureDetector(
-          onTap: () {
-            launch(webUrlLaunch, context);
-          },
-          child: Column(
-            children: [
-              Image.asset(
-                "assets/pictures/web.png",
-                width: 0.17 * width,
-              ),
-              SizedBox(
-                height: 17,
-              ),
-              Text(
-                "Web",
-                style:
-                    mainTextStyle.copyWith(fontSize: 17, fontWeight: semibold),
-              )
-            ],
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            launch(facebookLaunch, context);
-          },
-          child: Column(
-            children: [
-              Image.asset(
-                "assets/pictures/facebook.png",
-                width: 0.17 * width,
-              ),
-              SizedBox(
-                height: 17,
-              ),
-              Text(
-                "Facebook",
-                style:
-                    mainTextStyle.copyWith(fontSize: 17, fontWeight: semibold),
-              )
-            ],
-          ),
-        ),
+        SocialButton(
+            title: 'Web',
+            url: webUrlLaunch,
+            imageUrl: 'assets/pictures/web.png',
+            width: width),
+        SocialButton(
+            title: 'Facebook',
+            url: facebookLaunch,
+            imageUrl: 'assets/pictures/facebook.png',
+            width: width),
       ],
     );
   }
@@ -80,48 +38,16 @@ class CommunityPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        GestureDetector(
-          onTap: () {
-            launch(twitterLaunch, context);
-          },
-          child: Column(
-            children: [
-              Image.asset(
-                "assets/pictures/twitter.png",
-                width: 0.17 * width,
-              ),
-              SizedBox(
-                height: 17,
-              ),
-              Text(
-                "Twitter",
-                style:
-                    mainTextStyle.copyWith(fontSize: 17, fontWeight: semibold),
-              )
-            ],
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            launch(instagramLaunch, context);
-          },
-          child: Column(
-            children: [
-              Image.asset(
-                "assets/pictures/instagram.png",
-                width: 0.17 * width,
-              ),
-              SizedBox(
-                height: 17,
-              ),
-              Text(
-                "Instagram",
-                style:
-                    mainTextStyle.copyWith(fontSize: 17, fontWeight: semibold),
-              )
-            ],
-          ),
-        ),
+        SocialButton(
+            title: 'Twitter',
+            url: twitterLaunch,
+            imageUrl: 'assets/pictures/twitter.png',
+            width: width),
+        SocialButton(
+            title: 'Instagram',
+            url: instagramLaunch,
+            imageUrl: 'assets/pictures/instagram.png',
+            width: width),
       ],
     );
   }
@@ -132,15 +58,14 @@ class CommunityPage extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: kPrimaryColor1,
+      appBar: customBar("KOMUNITAS"),
       body: SafeArea(
           child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: defaultMargin, vertical: topMargin),
+        padding: EdgeInsets.symmetric(horizontal: defaultMargin),
         child: Column(
           children: [
-            BackToMain(),
             SizedBox(
-              height: 0.14 * height,
+              height: 0.05 * height,
             ),
             Image.asset(
               "assets/pictures/organization.png",

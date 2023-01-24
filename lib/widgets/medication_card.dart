@@ -19,7 +19,8 @@ class MedicationCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(top: 10),
       child: Card(
-        color: kGreyColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
+        //color: kGreyColor,
         child: ListTile(
           onTap: onTap,
           leading: Image.asset(

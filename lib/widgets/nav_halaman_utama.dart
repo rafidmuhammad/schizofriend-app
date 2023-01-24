@@ -11,18 +11,11 @@ class BackToMain extends StatelessWidget {
         Navigator.pop(context);
       },
       child: Container(
-        margin: const EdgeInsets.only(top: 15),
+        //margin: const EdgeInsets.only(top: 15),
         child: Row(children: [
           Icon(
             Icons.arrow_back,
             color: kPrimaryColor2,
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          Text(
-            "Halaman Utama",
-            style: mainTextStyle.copyWith(fontSize: 15, fontWeight: medium),
           ),
         ]),
       ),

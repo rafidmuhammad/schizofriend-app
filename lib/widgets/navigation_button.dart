@@ -32,7 +32,7 @@ class NavigationButton extends StatelessWidget {
             height: _height,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: kGreyColor,
+              color: Colors.white,
             ),
             child: Image.asset(imageUrl),
           ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ta_schizo/pages/calendar_page.dart';
 import 'package:ta_schizo/pages/community_page.dart';
 import 'package:ta_schizo/pages/contact_admin.dart';
+import 'package:ta_schizo/pages/education_page.dart';
+import 'package:ta_schizo/pages/side_effect_page.dart';
 import 'package:ta_schizo/shared/theme.dart';
 import 'package:ta_schizo/widgets/medication_card.dart';
 import 'package:ta_schizo/widgets/navigation_button.dart';
@@ -38,7 +41,7 @@ class MainPage extends StatelessWidget {
     );
   }
 
-  Widget firstRowButtons(double width, double height) {
+  Widget firstRowButtons(double width, double height, BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -55,13 +58,35 @@ class MainPage extends StatelessWidget {
           imageUrl: "assets/pictures/side_effect.png",
           width: width,
           height: height,
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SideEffectPage(),
+                ));
+          },
         )
       ],
     );
   }
 
-  Widget secondRowButtons(double width, double height, BuildContext context) {
+  Widget secondRowButton(double width, double height, BuildContext context) {
+    return NavigationButton(
+      title: "Komunitas",
+      imageUrl: "assets/pictures/komunitas.png",
+      width: width,
+      height: height,
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const CommunityPage(),
+            ));
+      },
+    );
+  }
+
+  Widget thirdRowButtons(double width, double height, BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -71,18 +96,11 @@ class MainPage extends StatelessWidget {
           title: "Jadwal\nKontrol",
           width: width,
           height: height,
-          onTap: () {},
-        ),
-        NavigationButton(
-          title: "Komunitas",
-          imageUrl: "assets/pictures/komunitas.png",
-          width: width,
-          height: height,
           onTap: () {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CommunityPage(),
+                  builder: (context) => CalendarPage(),
                 ));
           },
         ),
@@ -91,7 +109,13 @@ class MainPage extends StatelessWidget {
           imageUrl: "assets/pictures/edukasi.png",
           width: width,
           height: height,
-          onTap: (() {}),
+          onTap: (() {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EducationPage(),
+                ));
+          }),
         ),
       ],
     );
@@ -133,15 +157,20 @@ class MainPage extends StatelessWidget {
               const SizedBox(
                 height: 40,
               ),
-              firstRowButtons(width, height),
+              firstRowButtons(width, height, context),
               const SizedBox(
-                height: 40,
+                height: 20,
               ),
-              secondRowButtons(width, height, context),
+              secondRowButton(width, height, context),
+              const SizedBox(
+                height: 20,
+              ),
+              thirdRowButtons(width, height, context),
               const SizedBox(
                 height: 20,
               ),
               currentMedication(),
+
               AdminContact(height: height),
               // const SizedBox(height: 20),
             ],
