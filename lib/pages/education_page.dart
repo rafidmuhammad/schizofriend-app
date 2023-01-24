@@ -12,44 +12,40 @@ class EducationPage extends StatelessWidget {
     return Scaffold(
       appBar: customBar("LAMAN EDUKASI"),
       backgroundColor: kPrimaryColor1,
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: defaultMargin,
-        ),
-        child: ListView(
-          children: [
-            const SizedBox(
-              height: 26,
+      body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+        children: [
+          const SizedBox(
+            height: 26,
+          ),
+          const BlogCard(
+              imageUrl: "assets/pictures/head.png",
+              title: "Mengenal Skizoprenia Lebih Jauh"),
+          const BlogCard(
+            imageUrl: "assets/pictures/bottle.png",
+            title: "Hal Yang Harus Dilakukan Jika Lupa Minum Obat",
+            margin: EdgeInsets.only(
+              top: 40,
             ),
-            const BlogCard(
-                imageUrl: "assets/pictures/head.png",
-                title: "Mengenal Skizoprenia Lebih Jauh"),
-            const BlogCard(
-              imageUrl: "assets/pictures/bottle.png",
-              title: "Hal Yang Harus Dilakukan Jika Lupa Minum Obat",
-              margin: EdgeInsets.only(
-                top: 40,
-              ),
+          ),
+          const BlogCard(
+            imageUrl: "assets/pictures/handover.png",
+            title: "Pentingnya menjaga kepatuhan pengobatan",
+            margin: EdgeInsets.only(
+              top: 40,
             ),
-            const BlogCard(
-              imageUrl: "assets/pictures/handover.png",
-              title: "Pentingnya menjaga kepatuhan pengobatan",
-              margin: EdgeInsets.only(
-                top: 40,
-              ),
+          ),
+          const BlogCard(
+            imageUrl: "assets/pictures/couple.png",
+            title: "Hal Yang Harus Dilakukan Jika Lupa Minum Obat",
+            margin: EdgeInsets.only(
+              top: 40,
+              bottom: 40,
             ),
-            const BlogCard(
-              imageUrl: "assets/pictures/couple.png",
-              title: "Hal Yang Harus Dilakukan Jika Lupa Minum Obat",
-              margin: EdgeInsets.only(
-                top: 40,
-                bottom: 40,
-              ),
-            ),
-            //   ],
-            // )
-          ],
-        ),
+          ),
+          //   ],
+          // )
+        ],
       ),
     );
   }

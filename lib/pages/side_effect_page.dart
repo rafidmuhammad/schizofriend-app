@@ -42,7 +42,7 @@ class _SideEffectPageState extends State<SideEffectPage> {
             height: 10,
           ),
           Container(
-            padding: const EdgeInsets.only(right: 15),
+            padding: const EdgeInsets.only(right: 15, top: 10, bottom: 10),
             width: double.infinity,
             decoration: BoxDecoration(
                 color: kWhiteColor, borderRadius: BorderRadius.circular(18)),
@@ -224,7 +224,7 @@ class _SideEffectPageState extends State<SideEffectPage> {
                     style: mainTextStyle.copyWith(fontWeight: FontWeight.w600),
                   ),
                 ),
-                const SizedBox(height: 10),
+                //const SizedBox(height: 10),
               ],
             ),
           ),

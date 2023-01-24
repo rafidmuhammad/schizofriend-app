@@ -3,6 +3,7 @@ import 'package:ta_schizo/pages/calendar_page.dart';
 import 'package:ta_schizo/pages/community_page.dart';
 import 'package:ta_schizo/pages/contact_admin.dart';
 import 'package:ta_schizo/pages/education_page.dart';
+import 'package:ta_schizo/pages/profile_page.dart';
 import 'package:ta_schizo/pages/side_effect_page.dart';
 import 'package:ta_schizo/shared/theme.dart';
 import 'package:ta_schizo/widgets/medication_card.dart';
@@ -11,7 +12,7 @@ import 'package:ta_schizo/widgets/navigation_button.dart';
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
-  Widget header(double width) {
+  Widget header(double width, BuildContext context) {
     double size = width * 0.14;
     return Column(
       children: [
@@ -26,7 +27,13 @@ class MainPage extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProfilePage(),
+                    ));
+              },
               child: Container(
                 width: size,
                 height: size,
@@ -147,34 +154,32 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: kPrimaryColor1,
       body: SafeArea(
-        child: Padding(
+        child: ListView(
           padding: EdgeInsets.symmetric(
               horizontal: defaultMargin, vertical: topMargin),
-          child: ListView(
-            children: [
-              header(width),
-              const Divider(thickness: 2),
-              const SizedBox(
-                height: 40,
-              ),
-              firstRowButtons(width, height, context),
-              const SizedBox(
-                height: 20,
-              ),
-              secondRowButton(width, height, context),
-              const SizedBox(
-                height: 20,
-              ),
-              thirdRowButtons(width, height, context),
-              const SizedBox(
-                height: 20,
-              ),
-              currentMedication(),
+          children: [
+            header(width, context),
+            const Divider(thickness: 2),
+            const SizedBox(
+              height: 40,
+            ),
+            firstRowButtons(width, height, context),
+            const SizedBox(
+              height: 20,
+            ),
+            secondRowButton(width, height, context),
+            const SizedBox(
+              height: 20,
+            ),
+            thirdRowButtons(width, height, context),
+            const SizedBox(
+              height: 20,
+            ),
+            currentMedication(),
 
-              AdminContact(height: height),
-              // const SizedBox(height: 20),
-            ],
-          ),
+            AdminContact(height: height),
+            // const SizedBox(height: 20),
+          ],
         ),
       ),
     );
