@@ -44,34 +44,42 @@ class _CalendarPageState extends State<CalendarPage> {
     return Scaffold(
       appBar: customBar("JADWAL KONTROL"),
       backgroundColor: const Color(0xFFF6F2EF),
-      body: ScrollableCleanCalendar(
-        locale: 'id',
-        calendarController: calendarController,
-        layout: Layout.BEAUTY,
-        dayBuilder: (context, values) {
-          for (var element in jadwal) {
-            if (DateFormat.MMMMd('id').format(element.date) ==
-                DateFormat.MMMMd('id').format(values.day)) {
-              return Container(
-                decoration: BoxDecoration(
-                    color: kPrimaryColor2,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Center(
-                    child: Text(values.text,
-                        style: mainTextStyle.copyWith(
-                            fontWeight: FontWeight.w500,
-                            color: Theme.of(context).colorScheme.onPrimary))),
-              );
-            }
-          }
-          return Center(
-            child: Text(
-              values.text,
-              style: mainTextStyle.copyWith(fontWeight: FontWeight.w500),
+      body: Column(
+        children: [
+          Expanded(
+            child: ScrollableCleanCalendar(
+              locale: 'id',
+              calendarController: calendarController,
+              layout: Layout.BEAUTY,
+              dayBuilder: (context, values) {
+                for (var element in jadwal) {
+                  if (DateFormat.MMMMd('id').format(element.date) ==
+                      DateFormat.MMMMd('id').format(values.day)) {
+                    return Container(
+                      decoration: BoxDecoration(
+                          color: kPrimaryColor2,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Center(
+                          child: Text(values.text,
+                              style: mainTextStyle.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimary))),
+                    );
+                  }
+                }
+                return Center(
+                  child: Text(
+                    values.text,
+                    style: mainTextStyle.copyWith(fontWeight: FontWeight.w500),
+                  ),
+                );
+              },
+              calendarCrossAxisSpacing: 0,
             ),
-          );
-        },
-        calendarCrossAxisSpacing: 0,
+          ),
+        ],
       ),
     );
   }

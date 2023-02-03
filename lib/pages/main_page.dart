@@ -31,7 +31,7 @@ class MainPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProfilePage(),
+                      builder: (context) => const ProfilePage(),
                     ));
               },
               child: Container(
@@ -69,7 +69,7 @@ class MainPage extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SideEffectPage(),
+                  builder: (context) => const SideEffectPage(),
                 ));
           },
         )
@@ -107,7 +107,7 @@ class MainPage extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CalendarPage(),
+                  builder: (context) => const CalendarPage(),
                 ));
           },
         ),

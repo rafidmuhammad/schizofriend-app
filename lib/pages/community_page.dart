@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ta_schizo/shared/constant.dart';
 import 'package:ta_schizo/shared/theme.dart';
 import 'package:ta_schizo/widgets/custom_bar.dart';
-import 'package:ta_schizo/widgets/nav_halaman_utama.dart';
 import 'package:ta_schizo/widgets/social_button.dart';
 
 class CommunityPage extends StatelessWidget {

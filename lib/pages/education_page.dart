@@ -14,28 +14,28 @@ class EducationPage extends StatelessWidget {
       backgroundColor: kPrimaryColor1,
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-        children: [
-          const SizedBox(
+        children: const [
+          SizedBox(
             height: 26,
           ),
-          const BlogCard(
+          BlogCard(
               imageUrl: "assets/pictures/head.png",
               title: "Mengenal Skizoprenia Lebih Jauh"),
-          const BlogCard(
+          BlogCard(
             imageUrl: "assets/pictures/bottle.png",
             title: "Hal Yang Harus Dilakukan Jika Lupa Minum Obat",
             margin: EdgeInsets.only(
               top: 40,
             ),
           ),
-          const BlogCard(
+          BlogCard(
             imageUrl: "assets/pictures/handover.png",
             title: "Pentingnya menjaga kepatuhan pengobatan",
             margin: EdgeInsets.only(
               top: 40,
             ),
           ),
-          const BlogCard(
+          BlogCard(
             imageUrl: "assets/pictures/couple.png",
             title: "Hal Yang Harus Dilakukan Jika Lupa Minum Obat",
             margin: EdgeInsets.only(

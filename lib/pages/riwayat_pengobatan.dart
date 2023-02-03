@@ -13,7 +13,14 @@ class HistoricalMedicationPage extends StatelessWidget {
       backgroundColor: kPrimaryColor1,
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-        children: [HistoricalCard()],
+        children: [
+          MedicationProfileCard(
+            title: "Risperidone",
+            dose: "Tab 2 mg | 2 x 1 ",
+            time: "1/10/2023 - 1/12/2022",
+            onTap: null,
+          )
+        ],
       ),
     );
   }

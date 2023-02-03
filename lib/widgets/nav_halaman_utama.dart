@@ -10,15 +10,12 @@ class BackToMain extends StatelessWidget {
       onTap: () {
         Navigator.pop(context);
       },
-      child: Container(
-        //margin: const EdgeInsets.only(top: 15),
-        child: Row(children: [
-          Icon(
-            Icons.arrow_back,
-            color: kPrimaryColor2,
-          ),
-        ]),
-      ),
+      child: Row(children: [
+        Icon(
+          Icons.arrow_back,
+          color: kPrimaryColor2,
+        ),
+      ]),
     );
   }
 }

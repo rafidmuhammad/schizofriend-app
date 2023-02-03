@@ -30,7 +30,7 @@ class NavigationButton extends StatelessWidget {
                 horizontal: 0.27 * _width, vertical: 0.27 * _height),
             width: _width,
             height: _height,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.white,
             ),

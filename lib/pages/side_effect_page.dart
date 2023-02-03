@@ -44,8 +44,14 @@ class _SideEffectPageState extends State<SideEffectPage> {
           Container(
             padding: const EdgeInsets.only(right: 15, top: 10, bottom: 10),
             width: double.infinity,
-            decoration: BoxDecoration(
-                color: kWhiteColor, borderRadius: BorderRadius.circular(18)),
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 6,
+                spreadRadius: 3,
+                // offset: Offset(2, 2),
+              )
+            ], color: kWhiteColor, borderRadius: BorderRadius.circular(18)),
             child: Column(
               children: [
                 CustomRadioButton(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ta_schizo/pages/current_medication.dart';
 import 'package:ta_schizo/pages/riwayat_pengobatan.dart';
 import 'package:ta_schizo/shared/theme.dart';
 import 'package:ta_schizo/widgets/custom_bar.dart';
@@ -139,7 +140,13 @@ class _ProfilePageState extends State<ProfilePage> {
             height: 14,
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CurrentMedicationPage(),
+                  ));
+            },
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 10.5),
               padding: const EdgeInsets.only(left: 17, right: 17, top: 13),

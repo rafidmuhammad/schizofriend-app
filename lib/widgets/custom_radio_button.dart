@@ -39,7 +39,7 @@ class CustomRadioButton<T> extends StatelessWidget {
               child: Text(
                 label,
                 overflow: TextOverflow.visible,
-                textAlign: TextAlign.justify,
+                // textAlign: TextAlign.justify,
               ),
             )
           ],
