@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Schedule {
   final DateTime date;
   final String doctor;

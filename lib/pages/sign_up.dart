@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:ta_schizo/pages/private_data_page.dart';
 import 'package:ta_schizo/shared/theme.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -57,7 +58,15 @@ class SignUpPage extends StatelessWidget {
                   endIndent: 20,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PrivateDataPage(),
+                      ),
+                      (route) => false,
+                    );
+                  },
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     margin: const EdgeInsets.only(top: 20, bottom: 10),
