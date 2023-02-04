@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ta_schizo/pages/main_page.dart';
+import 'package:ta_schizo/pages/splash_page.dart';
 import 'package:ta_schizo/pages/wecome_page.dart';
 import 'package:ta_schizo/shared/theme.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins',
         primaryColor: kPrimaryColor1,
       ),
-      home: MainPage(),
+      home: SplashPage(),
     );
   }
 }

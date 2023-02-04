@@ -39,6 +39,7 @@ dependencies:
   url_launcher: ^6.1.7
   scrollable_clean_calendar: ^1.4.0
   intl: ^0.17.0
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -90,6 +91,10 @@ flutter:
           weight: 400
         - asset: assets/fonts/Poppins-Light.ttf
           weight: 300
+    - family : Damion
+      fonts :
+        - asset: assets/fonts/Damion-Regular.ttf
+          weight: 400
 
   #
   # For details regarding fonts from package dependencies,

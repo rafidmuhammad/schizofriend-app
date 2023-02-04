@@ -10,10 +10,12 @@ Color kPrimaryColor2 = const Color(0xFF4B4633);
 Color kDetailscolor = const Color(0xFF545454);
 
 TextStyle mainTextStyle = TextStyle(
+  fontFamily: "Poppins",
   color: kPrimaryColor2,
 );
 
 TextStyle detailTextStyle = TextStyle(
+  fontFamily: "Poppins",
   color: kDetailscolor,
 );
 
