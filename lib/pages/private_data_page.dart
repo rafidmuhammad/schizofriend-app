@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ta_schizo/cubit/auth_cubit.dart';
 import 'package:ta_schizo/pages/main_page.dart';
 import 'package:ta_schizo/shared/theme.dart';
 
@@ -10,11 +14,15 @@ class PrivateDataPage extends StatefulWidget {
 }
 
 class _PrivateDataPageState extends State<PrivateDataPage> {
-  TextEditingController username = TextEditingController();
+  TextEditingController? username;
   TextEditingController age = TextEditingController();
   bool? _gender;
   FocusNode focusNode = FocusNode();
 
+  String? name;
+  String? userId;
+
+  late AuthCubit authData;
   InputDecoration customDecoration(String hintText, String label) {
     return InputDecoration(
       isDense: true,
@@ -31,6 +39,23 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
           borderRadius: BorderRadius.circular(14),
           borderSide: const BorderSide(color: Colors.redAccent, width: 2)),
     );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+    authData = context.read<AuthCubit>();
+    readLocal();
+  }
+
+  void readLocal() {
+    setState(() {
+      name = authData.getValue("username");
+      userId = authData.getValue("userId");
+    });
+    username = TextEditingController(text: name);
   }
 
   @override
@@ -71,13 +96,19 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
                     ),
                     TextFormField(
                         autofocus: true,
+                        cursorColor: kPrimaryColor2,
                         controller: username,
                         decoration: customDecoration("James", "Nama pengguna")),
                     const SizedBox(height: 16),
                     TextFormField(
-                        focusNode: focusNode,
-                        controller: age,
-                        decoration: customDecoration("22", "Usia")),
+                      cursorColor: kPrimaryColor2,
+                      focusNode: focusNode,
+                      controller: age,
+                      decoration: customDecoration("22", "Usia"),
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                    ),
                     const SizedBox(height: 16),
                     Row(
                       children: [
@@ -120,12 +151,29 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MainPage(),
-                            ),
-                            (route) => false);
+                        if (_gender != null &&
+                            username!.text.isNotEmpty &&
+                            age.text.isNotEmpty) {
+                          context.read<AuthCubit>().updateData(
+                            userId!,
+                            {
+                              'age': age.text,
+                              'username': username!.text,
+                              'gender': _gender! ? 'Perempuan' : 'Laki-Laki'
+                            },
+                          );
+                          authData.getUserDataByID(userId!);
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MainPage(),
+                              ),
+                              (route) => false);
+                        } else {
+                          Fluttertoast.showToast(
+                              msg: "Harap mengisi semua data");
+                        }
+
                         focusNode.unfocus();
                       },
                       child: const Text("Lanjut"),

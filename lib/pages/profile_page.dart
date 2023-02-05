@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ta_schizo/cubit/auth_cubit.dart';
 import 'package:ta_schizo/pages/current_medication.dart';
 import 'package:ta_schizo/pages/riwayat_pengobatan.dart';
 import 'package:ta_schizo/shared/theme.dart';
@@ -13,24 +15,73 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   Widget profPicAndName(double width, double height) {
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.only(
-            bottom: 17,
-            top: height * 0.06,
-          ),
-          width: 0.2 * width,
-          height: 0.1 * height,
-          decoration: BoxDecoration(
-              color: kGreyColor, borderRadius: BorderRadius.circular(18)),
-          child: const Icon(Icons.person),
-        ),
-        Text(
-          "Nama Lengkap",
-          style: mainTextStyle.copyWith(fontWeight: medium, fontSize: 20),
-        )
-      ],
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, state) {
+        if (state is AuthSuccess) {
+          return Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(bottom: 17, top: height * 0.06),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(18),
+                  child: Image.network(
+                    state.user.imageUrl!,
+                    fit: BoxFit.cover,
+                    width: 0.2 * width,
+                    height: 0.1 * height,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Icon(
+                        Icons.account_circle,
+                        size: 0.2 * width,
+                        color: kWhiteColor,
+                      );
+                    },
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return SizedBox(
+                        width: 0.2 * width,
+                        height: 0.1 * height,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: kPrimaryColor2,
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Text(
+                state.user.username!,
+                style: mainTextStyle.copyWith(fontWeight: medium, fontSize: 20),
+              )
+            ],
+          );
+        }
+        return Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(
+                bottom: 17,
+                top: height * 0.06,
+              ),
+              width: 0.2 * width,
+              height: 0.1 * height,
+              decoration: BoxDecoration(
+                  color: kGreyColor, borderRadius: BorderRadius.circular(18)),
+              child: const Icon(Icons.person),
+            ),
+            Text(
+              "Nama Lengkap",
+              style: mainTextStyle.copyWith(fontWeight: medium, fontSize: 20),
+            )
+          ],
+        );
+      },
     );
   }
 
@@ -44,41 +95,88 @@ class _ProfilePageState extends State<ProfilePage> {
             "Data Pribadi",
             style: mainTextStyle.copyWith(fontSize: 20, fontWeight: medium),
           ),
-          Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.only(left: 17, right: 17, top: 13),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              if (state is AuthSuccess) {
+                return Column(
                   children: [
-                    Text(
-                      "Usia",
-                      style: mainTextStyle,
+                    Container(
+                      padding:
+                          const EdgeInsets.only(left: 17, right: 17, top: 13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Usia",
+                            style: mainTextStyle,
+                          ),
+                          Text(
+                            state.user.age!,
+                            style: mainTextStyle,
+                          )
+                        ],
+                      ),
                     ),
-                    const Text("32")
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 19,
-              ),
-              Container(
-                padding: const EdgeInsets.only(
-                  left: 17,
-                  right: 17,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Jenis Kelamin",
-                      style: mainTextStyle,
+                    const SizedBox(
+                      height: 19,
                     ),
-                    const Text("Laki-laki")
+                    Container(
+                      padding: const EdgeInsets.only(
+                        left: 17,
+                        right: 17,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Jenis Kelamin",
+                            style: mainTextStyle,
+                          ),
+                          Text(state.user.gender!)
+                        ],
+                      ),
+                    )
                   ],
-                ),
-              )
-            ],
+                );
+              }
+              return Column(
+                children: [
+                  Container(
+                    padding:
+                        const EdgeInsets.only(left: 17, right: 17, top: 13),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Usia",
+                          style: mainTextStyle,
+                        ),
+                        Text("Tidak dapat mengambil data")
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 19,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(
+                      left: 17,
+                      right: 17,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Jenis Kelamin",
+                          style: mainTextStyle,
+                        ),
+                        const Text("Tidak dapat mengambil data")
+                      ],
+                    ),
+                  )
+                ],
+              );
+            },
           )
         ],
       ),
@@ -89,11 +187,9 @@ class _ProfilePageState extends State<ProfilePage> {
     return ExpansionTile(
       collapsedIconColor: kPrimaryColor2,
       iconColor: kPrimaryColor2,
-      title: Expanded(
-        child: Text(
-          title,
-          style: mainTextStyle.copyWith(fontSize: 14, fontWeight: regular),
-        ),
+      title: Text(
+        title,
+        style: mainTextStyle.copyWith(fontSize: 14, fontWeight: regular),
       ),
       children: [
         ListTile(

@@ -42,4 +42,24 @@ class UserService {
       rethrow;
     }
   }
+
+  Future<UserModel> fetchUserDataById(String id) async {
+    try {
+      DocumentSnapshot documentSnapshot = await _userReference.doc(id).get();
+      UserModel user = UserModel(
+          id: id,
+          username: documentSnapshot['username'],
+          age: documentSnapshot['age'],
+          gender: documentSnapshot['gender'],
+          imageUrl: documentSnapshot['imageUrl']);
+      return user;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> updateDataFirestore(
+      String id, Map<String, String> dataNeedUpdate) {
+    return _userReference.doc(id).update(dataNeedUpdate);
+  }
 }

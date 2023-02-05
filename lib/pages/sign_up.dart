@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ta_schizo/cubit/auth_cubit.dart';
+import 'package:ta_schizo/pages/main_page.dart';
 import 'package:ta_schizo/pages/private_data_page.dart';
 import 'package:ta_schizo/shared/theme.dart';
 
@@ -64,9 +65,25 @@ class SignUpPage extends StatelessWidget {
                   listener: (context, state) {
                     // TODO: implement listener
                     if (state is AuthSuccess) {
-                      Fluttertoast.showToast(msg: "success");
+                      Fluttertoast.showToast(msg: "Berhasil masuk");
+                      if (state.user.age!.isNotEmpty &&
+                          state.user.gender!.isNotEmpty) {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MainPage(),
+                            ),
+                            (route) => false);
+                      } else {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PrivateDataPage(),
+                            ),
+                            (route) => false);
+                      }
                     } else if (state is AuthFailed) {
-                      Fluttertoast.showToast(msg: "error");
+                      Fluttertoast.showToast(msg: "Gagal Masuk");
                     }
                   },
                   builder: (context, state) {

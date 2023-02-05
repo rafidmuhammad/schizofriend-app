@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ta_schizo/cubit/auth_cubit.dart';
 import 'package:ta_schizo/pages/calendar_page.dart';
 import 'package:ta_schizo/pages/community_page.dart';
 import 'package:ta_schizo/pages/contact_admin.dart';
@@ -9,40 +11,81 @@ import 'package:ta_schizo/shared/theme.dart';
 import 'package:ta_schizo/widgets/medication_card.dart';
 import 'package:ta_schizo/widgets/navigation_button.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
   Widget header(double width, BuildContext context) {
-    double size = width * 0.14;
+    double size = width * 0.15;
     return Column(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                overflow: TextOverflow.ellipsis,
-                "Halo!\nDini",
-                style: mainTextStyle.copyWith(
-                    fontSize: (width * 0.08), fontWeight: semibold),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ProfilePage(),
-                    ));
-              },
-              child: Container(
-                width: size,
-                height: size,
-                decoration:
-                    BoxDecoration(shape: BoxShape.circle, color: kGreyColor),
-                child: const Icon(Icons.person),
-              ),
-            ),
-          ],
+        BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, state) {
+            if (state is AuthSuccess) {
+              return Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      overflow: TextOverflow.fade,
+                      "Halo!\n${state.user.username}",
+                      style: mainTextStyle.copyWith(
+                          fontSize: (width * 0.07), fontWeight: semibold),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ProfilePage(),
+                          ));
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(45),
+                      child: Image.network(
+                        state.user.imageUrl!,
+                        fit: BoxFit.cover,
+                        width: size,
+                        height: size,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Icon(
+                            Icons.account_circle,
+                            size: size,
+                            color: kWhiteColor,
+                          );
+                        },
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return SizedBox(
+                            width: size,
+                            height: size,
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: kPrimaryColor2,
+                                value: loadingProgress.expectedTotalBytes !=
+                                        null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                    : null,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return Center(
+                child: Text("Unable to load"),
+              );
+            }
+          },
         ),
       ],
     );
