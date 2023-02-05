@@ -1,5 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ta_schizo/cubit/auth_cubit.dart';
 import 'package:ta_schizo/pages/private_data_page.dart';
 import 'package:ta_schizo/shared/theme.dart';
 
@@ -30,7 +33,7 @@ class SignUpPage extends StatelessWidget {
                 viewportFraction: 1.0,
                 enlargeCenterPage: false,
                 autoPlay: true,
-                autoPlayInterval: Duration(seconds: 5),
+                autoPlayInterval: const Duration(seconds: 5),
                 autoPlayCurve: Curves.easeInOut),
           ),
         ),
@@ -57,32 +60,49 @@ class SignUpPage extends StatelessWidget {
                   indent: 20,
                   endIndent: 20,
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PrivateDataPage(),
-                      ),
-                      (route) => false,
+                BlocConsumer<AuthCubit, AuthState>(
+                  listener: (context, state) {
+                    // TODO: implement listener
+                    if (state is AuthSuccess) {
+                      Fluttertoast.showToast(msg: "success");
+                    } else if (state is AuthFailed) {
+                      Fluttertoast.showToast(msg: "error");
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is AuthLoading) {
+                      return const Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            context.read<AuthCubit>().signInWithGoogle();
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            margin: const EdgeInsets.only(top: 20, bottom: 10),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(14)),
+                            child: Image.asset(
+                              "assets/pictures/google.png",
+                              width: 40,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          "Masuk",
+                          style: mainTextStyle.copyWith(
+                              fontSize: 16, fontWeight: medium),
+                        ),
+                      ],
                     );
                   },
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    margin: const EdgeInsets.only(top: 20, bottom: 10),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(14)),
-                    child: Image.asset(
-                      "assets/pictures/google.png",
-                      width: 40,
-                    ),
-                  ),
-                ),
-                Text(
-                  "Masuk",
-                  style:
-                      mainTextStyle.copyWith(fontSize: 16, fontWeight: medium),
                 )
               ],
             ),

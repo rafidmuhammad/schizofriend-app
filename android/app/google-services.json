@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "8942971212",
+    "project_id": "schizofriend-d67ae",
+    "storage_bucket": "schizofriend-d67ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:8942971212:android:ace13646b52213f94a87e9",
+        "android_client_info": {
+          "package_name": "com.rafid.schizofriend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "8942971212-og8n2dlikp09mqgvck6ia3uo4e542kck.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rafid.schizofriend",
+            "certificate_hash": "fb2714e0bd8560dcb984d9ba282cac5f31a4d914"
+          }
+        },
+        {
+          "client_id": "8942971212-bt7e14tlora7t3la3eks506uosu33tk4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLasgGlVfEFwy4uuA7fO8LZ7vBxLoF5oM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "8942971212-bt7e14tlora7t3la3eks506uosu33tk4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
