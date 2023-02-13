@@ -29,12 +29,13 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Schizofriend',
         theme: ThemeData(
           fontFamily: 'Poppins',
           primaryColor: kPrimaryColor1,
         ),
-        home: SplashPage(),
+        home: SplashPage(preferences: preferences),
       ),
     );
   }

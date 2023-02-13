@@ -16,12 +16,17 @@ class AuthCubit extends Cubit<AuthState> {
     return preferences.getString(key);
   }
 
+  Future<bool> isSignedIn() async {
+    return await AuthService().isLoggedIn();
+  }
+
   void signInWithGoogle() async {
     try {
       emit(AuthLoading());
       UserModel user = await AuthService().signInWithGoogle();
       preferences.setString("username", user.username!);
       preferences.setString("userId", user.id);
+      preferences.setString("imageUrl", user.imageUrl!);
       emit(AuthSuccess(user));
     } on FirebaseException catch (e) {
       throw AuthFailed(e.toString());
@@ -37,9 +42,20 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthLoading());
       UserModel user = await UserService().fetchUserDataById(id);
       preferences.setString("username", user.username!);
+      // preferences.setString("imageUrl", user.imageUrl!);
       emit(AuthSuccess(user));
     } catch (e) {
       throw AuthFailed(e.toString());
+    }
+  }
+
+  void signOut() async {
+    try {
+      emit(AuthLoading());
+      await AuthService().signOut();
+      emit(AuthInitial());
+    } catch (e) {
+      emit(AuthFailed(e.toString()));
     }
   }
 }

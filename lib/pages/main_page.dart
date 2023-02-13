@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_schizo/cubit/auth_cubit.dart';
@@ -19,6 +21,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  late AuthCubit authData;
+  String? username;
+  String? userId;
+  String? imageUrl;
+
   Widget header(double width, BuildContext context) {
     double size = width * 0.15;
     return Column(
@@ -47,7 +54,7 @@ class _MainPageState extends State<MainPage> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(45),
                       child: Image.network(
-                        state.user.imageUrl!,
+                        imageUrl!,
                         fit: BoxFit.cover,
                         width: size,
                         height: size,
@@ -81,8 +88,32 @@ class _MainPageState extends State<MainPage> {
                 ],
               );
             } else {
-              return Center(
-                child: Text("Unable to load"),
+              return Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      overflow: TextOverflow.fade,
+                      "Halo!\n$username",
+                      style: mainTextStyle.copyWith(
+                          fontSize: (width * 0.07), fontWeight: semibold),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ProfilePage(),
+                          ));
+                    },
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(45),
+                        child: Icon(
+                          Icons.account_circle,
+                          size: size,
+                        )),
+                  ),
+                ],
               );
             }
           },
@@ -190,39 +221,153 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
+  Future<bool> onBackPress() {
+    openDialog();
+    return Future.value(false);
+  }
+
+  Future<void> openDialog() async {
+    switch (await showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          clipBehavior: Clip.hardEdge,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          contentPadding: EdgeInsets.zero,
+          children: [
+            Container(
+              color: kPrimaryColor2,
+              padding: const EdgeInsets.only(bottom: 10, top: 10),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    child: Icon(
+                      Icons.exit_to_app,
+                      size: 30,
+                      color: kWhiteColor,
+                    ),
+                  ),
+                  Text(
+                    "Exit app",
+                    style: TextStyle(
+                        color: kWhiteColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const Text(
+                    "Are you sure to exit app?",
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                  )
+                ],
+              ),
+            ),
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context, 0);
+              },
+              child: Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    child: Icon(
+                      Icons.cancel,
+                      color: kPrimaryColor2,
+                    ),
+                  ),
+                  Text(
+                    'Cancel',
+                    style: TextStyle(
+                        color: kPrimaryColor2, fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+            ),
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context, 1);
+              },
+              child: Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    child: Icon(
+                      Icons.check_circle,
+                      color: kPrimaryColor2,
+                    ),
+                  ),
+                  Text(
+                    'Yes',
+                    style: TextStyle(
+                        color: kPrimaryColor2, fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+            )
+          ],
+        );
+      },
+    )) {
+      case 0:
+        break;
+      case 1:
+        exit(0);
+      default:
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    authData = context.read<AuthCubit>();
+
+    setState(() {
+      username = authData.getValue("username");
+      userId = authData.getValue("userId");
+      imageUrl = authData.getValue("imageUrl");
+    });
+
+    // authData.getUserDataByID(userId!);
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: kPrimaryColor1,
-      body: SafeArea(
-        child: ListView(
-          padding: EdgeInsets.symmetric(
-              horizontal: defaultMargin, vertical: topMargin),
-          children: [
-            header(width, context),
-            const Divider(thickness: 2),
-            const SizedBox(
-              height: 40,
-            ),
-            firstRowButtons(width, height, context),
-            const SizedBox(
-              height: 20,
-            ),
-            secondRowButton(width, height, context),
-            const SizedBox(
-              height: 20,
-            ),
-            thirdRowButtons(width, height, context),
-            const SizedBox(
-              height: 20,
-            ),
-            currentMedication(),
+      body: WillPopScope(
+        onWillPop: onBackPress,
+        child: SafeArea(
+          child: ListView(
+            padding: EdgeInsets.symmetric(
+                horizontal: defaultMargin, vertical: topMargin),
+            children: [
+              header(width, context),
+              const Divider(thickness: 2),
+              const SizedBox(
+                height: 40,
+              ),
+              firstRowButtons(width, height, context),
+              const SizedBox(
+                height: 20,
+              ),
+              secondRowButton(width, height, context),
+              const SizedBox(
+                height: 20,
+              ),
+              thirdRowButtons(width, height, context),
+              const SizedBox(
+                height: 20,
+              ),
+              currentMedication(),
 
-            AdminContact(height: height),
-            // const SizedBox(height: 20),
-          ],
+              AdminContact(height: height),
+              // const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );

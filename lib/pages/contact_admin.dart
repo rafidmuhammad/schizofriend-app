@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ta_schizo/main.dart';
 import 'package:ta_schizo/shared/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -21,7 +20,6 @@ class AdminContact extends StatelessWidget {
   Uri whatsApp = Uri.parse("https://wa.me/62816205800");
   @override
   Widget build(BuildContext context) {
-    double _height = height * 0.05;
     return GestureDetector(
       onTap: () {
         launchingUrl(whatsApp, context);

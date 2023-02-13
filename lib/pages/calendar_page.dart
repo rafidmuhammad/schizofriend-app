@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:scrollable_clean_calendar/controllers/clean_calendar_controller.dart';
@@ -8,7 +6,6 @@ import 'package:scrollable_clean_calendar/utils/enums.dart';
 import 'package:ta_schizo/models/schedule_model.dart';
 import 'package:ta_schizo/shared/theme.dart';
 import 'package:ta_schizo/widgets/custom_bar.dart';
-import 'package:ta_schizo/widgets/nav_halaman_utama.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
@@ -186,18 +183,18 @@ class _CalendarPageState extends State<CalendarPage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                "OK",
-                style: mainTextStyle.copyWith(fontWeight: FontWeight.w600),
-              ),
               style: ButtonStyle(
                 backgroundColor:
-                    MaterialStateProperty.all<Color>(Color(0xFFD9D9D9)),
+                    MaterialStateProperty.all<Color>(const Color(0xFFD9D9D9)),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                   ),
                 ),
+              ),
+              child: Text(
+                "OK",
+                style: mainTextStyle.copyWith(fontWeight: FontWeight.w600),
               ),
             )
           ],

@@ -24,8 +24,9 @@ class MedicationProfileCard extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         child: ListTile(
           onTap: onTap,
-          trailing:
-              isCurrent ? Icon(Icons.keyboard_arrow_right) : SizedBox.shrink(),
+          trailing: isCurrent
+              ? const Icon(Icons.keyboard_arrow_right)
+              : const SizedBox.shrink(),
           isThreeLine: true,
           title: Text(
             title,

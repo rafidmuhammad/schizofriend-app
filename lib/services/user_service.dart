@@ -18,7 +18,8 @@ class UserService {
           "username": username,
           "gender": "",
           "age": "",
-          "imageUrl": imageUrl
+          "imageUrl": imageUrl,
+          "riwayatPenyakit": "Tidak ada"
         });
 
         user = UserModel(
@@ -26,16 +27,17 @@ class UserService {
             username: username,
             age: "",
             gender: "",
-            imageUrl: imageUrl);
+            imageUrl: imageUrl,
+            riwayatPenyakit: "");
       } else {
         DocumentSnapshot snapshot = documents[0];
         user = UserModel(
-          id: id,
-          username: snapshot["username"],
-          age: snapshot["age"],
-          gender: snapshot["gender"],
-          imageUrl: snapshot["imageUrl"],
-        );
+            id: id,
+            username: snapshot["username"],
+            age: snapshot["age"],
+            gender: snapshot["gender"],
+            imageUrl: snapshot["imageUrl"],
+            riwayatPenyakit: snapshot["riwayatPenyakit"]);
       }
       return user;
     } catch (e) {
@@ -47,11 +49,13 @@ class UserService {
     try {
       DocumentSnapshot documentSnapshot = await _userReference.doc(id).get();
       UserModel user = UserModel(
-          id: id,
-          username: documentSnapshot['username'],
-          age: documentSnapshot['age'],
-          gender: documentSnapshot['gender'],
-          imageUrl: documentSnapshot['imageUrl']);
+        id: id,
+        username: documentSnapshot['username'],
+        age: documentSnapshot['age'],
+        gender: documentSnapshot['gender'],
+        imageUrl: documentSnapshot['imageUrl'],
+        riwayatPenyakit: documentSnapshot['riwayatPenyakit'],
+      );
       return user;
     } catch (e) {
       rethrow;

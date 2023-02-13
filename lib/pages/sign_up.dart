@@ -12,7 +12,13 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> images = ['nature1', 'nature2', 'nature3', 'nature4'];
+    final List<String> images = [
+      // 'nature1',
+      // 'nature2',
+      'nature3',
+      'nature4',
+      'nature5'
+    ];
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -71,14 +77,14 @@ class SignUpPage extends StatelessWidget {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MainPage(),
+                              builder: (context) => const MainPage(),
                             ),
                             (route) => false);
                       } else {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => PrivateDataPage(),
+                              builder: (context) => const PrivateDataPage(),
                             ),
                             (route) => false);
                       }

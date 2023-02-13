@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ta_schizo/shared/theme.dart';
 import 'package:ta_schizo/widgets/blog_card.dart';
 import 'package:ta_schizo/widgets/custom_bar.dart';
-import 'package:ta_schizo/widgets/nav_halaman_utama.dart';
 
 class EducationPage extends StatelessWidget {
   const EducationPage({super.key});

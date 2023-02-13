@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_schizo/cubit/auth_cubit.dart';
 import 'package:ta_schizo/pages/current_medication.dart';
 import 'package:ta_schizo/pages/riwayat_pengobatan.dart';
+import 'package:ta_schizo/pages/sign_up.dart';
 import 'package:ta_schizo/shared/theme.dart';
 import 'package:ta_schizo/widgets/custom_bar.dart';
 
@@ -14,6 +15,9 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String? username;
+  late AuthCubit authData;
+
   Widget profPicAndName(double width, double height) {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
@@ -21,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
           return Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(bottom: 17, top: height * 0.06),
+                padding: EdgeInsets.only(bottom: 17, top: height * 0.01),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(18),
                   child: Image.network(
@@ -76,7 +80,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: const Icon(Icons.person),
             ),
             Text(
-              "Nama Lengkap",
+              username!,
               style: mainTextStyle.copyWith(fontWeight: medium, fontSize: 20),
             )
           ],
@@ -145,13 +149,23 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding:
                         const EdgeInsets.only(left: 17, right: 17, top: 13),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           "Usia",
                           style: mainTextStyle,
                         ),
-                        Text("Tidak dapat mengambil data")
+                        const Expanded(
+                          child: SizedBox(
+                            width: 15,
+                          ),
+                        ),
+                        const Expanded(
+                          child: Text(
+                            "Tidak dapat mengambil data",
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -170,7 +184,17 @@ class _ProfilePageState extends State<ProfilePage> {
                           "Jenis Kelamin",
                           style: mainTextStyle,
                         ),
-                        const Text("Tidak dapat mengambil data")
+                        const Expanded(
+                          child: SizedBox(
+                            width: 15,
+                          ),
+                        ),
+                        const Expanded(
+                          child: Text(
+                            "Tidak dapat mengambil data",
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
                       ],
                     ),
                   )
@@ -240,7 +264,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CurrentMedicationPage(),
+                    builder: (context) => const CurrentMedicationPage(),
                   ));
             },
             child: Container(
@@ -263,7 +287,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HistoricalMedicationPage(),
+                    builder: (context) => const HistoricalMedicationPage(),
                   ));
             },
             child: Container(
@@ -284,10 +308,68 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ),
-          expansionTile("Riwayat Penyakit", "Tidak ada")
+          BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              if (state is AuthSuccess) {
+                return expansionTile(
+                    "Riwayat Penyakit", state.user.riwayatPenyakit!);
+              }
+              return expansionTile(
+                  "Riwayat Penyakit", "Sedang tidak dapat menerima data");
+            },
+          )
         ],
       ),
     );
+  }
+
+  Widget signOutButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [buildPopUpMenu()],
+    );
+  }
+
+  Widget buildPopUpMenu() {
+    return PopupMenuButton(
+      onSelected: (value) {
+        if (value == 1) {
+          context.read<AuthCubit>().signOut();
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SignUpPage(),
+              ),
+              (route) => false);
+        }
+      },
+      itemBuilder: (context) {
+        return [
+          PopupMenuItem(
+            value: 1,
+            child: Row(
+              children: const [
+                Icon(Icons.exit_to_app),
+                SizedBox(
+                  width: 10,
+                ),
+                Text("Log Out")
+              ],
+            ),
+          )
+        ];
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    authData = context.read<AuthCubit>();
+    setState(() {
+      username = authData.getValue("username");
+    });
   }
 
   @override
@@ -300,6 +382,7 @@ class _ProfilePageState extends State<ProfilePage> {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         children: [
+          signOutButton(),
           profPicAndName(width, height),
           dataPribadi(height),
           dataKesehatan(),

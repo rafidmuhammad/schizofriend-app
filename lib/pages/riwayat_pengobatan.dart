@@ -13,7 +13,7 @@ class HistoricalMedicationPage extends StatelessWidget {
       backgroundColor: kPrimaryColor1,
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-        children: [
+        children: const [
           MedicationProfileCard(
             title: "Risperidone",
             dose: "Tab 2 mg | 2 x 1 ",
